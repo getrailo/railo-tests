@@ -7,6 +7,8 @@ component extends="org.railo.cfml.test.RailoTestCase"	{
 	}
 	
 	
+	public void function test(){
+	}
 
 	
 	public void function testThreads(){
