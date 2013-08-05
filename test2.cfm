@@ -101,10 +101,22 @@
 					<cfif true>
 					<!---<div class="section-title">Debugging Information</div>--->
 					<table>
+					<cftry>
+						<cfset cfc=createObject("component",qry.component)>
+						<cfset meta=getmetadata(cfc)>
+						
 					<tr>
-						<td>Total Execution Time:</td>
+						<td>Location:</td>
+						<td><a href="#meta.remoteAddress#" target="_new">#meta.path#</a></td>
+					</tr>
+					
+						<cfcatch></cfcatch>
+					</cftry>
+					<tr>
+						<td>Total Time:</td>
 						<td>#total# ms</td>
 					</tr>
+					
 					</table>
 					
 					<cfoutput>
