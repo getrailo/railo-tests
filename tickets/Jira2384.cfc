@@ -75,5 +75,4 @@ component extends="org.railo.cfml.test.RailoTestCase"	{
 	}
 } 
 
-server.ColdFusion.ProductName NEQ "Railo" || !getPageContext().getConfig().getFullNullSupport()
 </cfscript>
