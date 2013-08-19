@@ -45,15 +45,17 @@ directory sort="dateLastModified desc"  action="list" directory="./tickets" name
 </cfif>
 
 
-
-
 <cfscript>
 if(url.action != "none") {
 	
 	
 	testSuite = new org.railo.cfml.test.RailoTestSuite();
+	//testSuite.maxTheads(20);
 	
-	if(url.action == "all")testSuite.addPackage('tickets');
+	if(url.action == "all") {
+		testSuite.addPackage('tickets');
+		testSuite.addPackage('general');
+	}
 	else if(url.action == "single") {
 		cfcName='tickets.'&url.ticket;
 		cfc=createObject('component',cfcName);
