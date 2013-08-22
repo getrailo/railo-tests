@@ -4,65 +4,16 @@ component extends="org.railo.cfml.test.RailoTestCase"	{
 	public function setUp(){
 		date=createDateTime(2009,6,9,14,30,3);
 	}
-
-	public void function testG(){
-		// Era designator
-		assertEquals("AD",DateTimeFormat(date,"G"));
-		assertEquals("AD",DateTimeFormat(date,"GG"));
-		assertEquals("AD",DateTimeFormat(date,"GGG"));
-		assertEquals("AD AD",DateTimeFormat(date,"GG GG"));
-		
-		
-		assertEquals("g",DateTimeFormat(date,"g"));
-		
-	}
 	
-	public void function testY(){
-		// year
-		assertEquals("09",DateTimeFormat(date,"y"));
-		assertEquals("09",DateTimeFormat(date,"yy"));
-		assertEquals("09",DateTimeFormat(date,"yyy"));
-		assertEquals("2009",DateTimeFormat(date,"yyyy"));
-		assertEquals("02009",DateTimeFormat(date,"yyyyy"));
+	public void function testA(){
+		// Am/pm marker
+		assertEquals("PM",DateTimeFormat(date,"a"));
+		assertEquals("PM",DateTimeFormat(date,"aa"));
+		assertEquals("PM",DateTimeFormat(date,"aaa"));
+		assertEquals("PM",DateTimeFormat(date,"aaaa"));
+		assertEquals("PM",DateTimeFormat(date,"aaaaa"));
 		
-		try{
-			ssertEquals("09",DateTimeFormat(date,"Y"));
-			fail("must fail with exception:Illegal pattern character 'Y'");
-		}
-		catch(local.exp){}
-	}
-	
-	public void function testM(){
-		// month
-		assertEquals("6",DateTimeFormat(date,"M"));
-		assertEquals("06",DateTimeFormat(date,"MM"));
-		assertEquals("Jun",DateTimeFormat(date,"MMM"));
-		assertEquals("June",DateTimeFormat(date,"MMMM"));
-		assertEquals("June",DateTimeFormat(date,"MMMMM"));
-		
-		assertEquals("6",DateTimeFormat(date,"m"));
-		assertEquals("06",DateTimeFormat(date,"mm"));
-		assertEquals("Jun",DateTimeFormat(date,"mmm"));
-		assertEquals("June",DateTimeFormat(date,"mmmm"));
-		assertEquals("June",DateTimeFormat(date,"mmmmm"));
-		
-		
-	}
-	
-	public void function testW(){
-		// Week in year
-		assertEquals("24",DateTimeFormat(date,"w"));
-		assertEquals("24",DateTimeFormat(date,"ww"));
-		assertEquals("024",DateTimeFormat(date,"www"));
-		assertEquals("0024",DateTimeFormat(date,"wwww"));
-		assertEquals("00024",DateTimeFormat(date,"wwwww"));
-		
-		// Week in month
-		assertEquals("2",DateTimeFormat(date,"W"));
-		assertEquals("02",DateTimeFormat(date,"WW"));
-		assertEquals("002",DateTimeFormat(date,"WWW"));
-		assertEquals("0002",DateTimeFormat(date,"WWWW"));
-		assertEquals("00002",DateTimeFormat(date,"WWWWW"));
+		assertEquals("A",DateTimeFormat(date,"A"));
 	}
 	
 	public void function testD(){
@@ -81,6 +32,17 @@ component extends="org.railo.cfml.test.RailoTestCase"	{
 		assertEquals("00160",DateTimeFormat(date,"DDDDD"));
 	}
 	
+	public void function testE(){
+		// Day of week
+		assertEquals("Tue",DateTimeFormat(date,"E"));
+		assertEquals("Tue",DateTimeFormat(date,"EE"));
+		assertEquals("Tue",DateTimeFormat(date,"EEE"));
+		assertEquals("Tuesday",DateTimeFormat(date,"EEEE"));
+		assertEquals("Tuesday",DateTimeFormat(date,"EEEEE"));
+		
+		assertEquals("e",DateTimeFormat(date,"e"));
+	}
+	
 	public void function testF(){
 		// Day of week in month
 		assertEquals("2",DateTimeFormat(date,"F"));
@@ -91,27 +53,17 @@ component extends="org.railo.cfml.test.RailoTestCase"	{
 		
 		assertEquals("f",DateTimeFormat(date,"f"));
 	}
-	
-	public void function testE(){
-		// Day of week in month
-		assertEquals("Tue",DateTimeFormat(date,"E"));
-		assertEquals("Tue",DateTimeFormat(date,"EE"));
-		assertEquals("Tue",DateTimeFormat(date,"EEE"));
-		assertEquals("Tuesday",DateTimeFormat(date,"EEEE"));
-		assertEquals("Tuesday",DateTimeFormat(date,"EEEEE"));
+
+	public void function testG(){
+		// Era designator
+		assertEquals("AD",DateTimeFormat(date,"G"));
+		assertEquals("AD",DateTimeFormat(date,"GG"));
+		assertEquals("AD",DateTimeFormat(date,"GGG"));
+		assertEquals("AD AD",DateTimeFormat(date,"GG GG"));
 		
-		assertEquals("e",DateTimeFormat(date,"e"));
-	}
-	
-	public void function testA(){
-		// Day of week in month
-		assertEquals("PM",DateTimeFormat(date,"a"));
-		assertEquals("PM",DateTimeFormat(date,"aa"));
-		assertEquals("PM",DateTimeFormat(date,"aaa"));
-		assertEquals("PM",DateTimeFormat(date,"aaaa"));
-		assertEquals("PM",DateTimeFormat(date,"aaaaa"));
 		
-		assertEquals("A",DateTimeFormat(date,"A"));
+		assertEquals("g",DateTimeFormat(date,"g"));
+		
 	}
 	
 	public void function testH(){
@@ -146,52 +98,6 @@ component extends="org.railo.cfml.test.RailoTestCase"	{
 		assertEquals("00002",DateTimeFormat(date,"KKKKK"));
 	}
 	
-	public void function testS(){
-		// Second in minute
-		assertEquals("3",DateTimeFormat(date,"s"));
-		assertEquals("03",DateTimeFormat(date,"ss"));
-		assertEquals("003",DateTimeFormat(date,"sss"));
-		assertEquals("0003",DateTimeFormat(date,"ssss"));
-		assertEquals("00003",DateTimeFormat(date,"sssss"));
-		
-		assertEquals("3",DateTimeFormat(date,"S"));
-		assertEquals("03",DateTimeFormat(date,"SS"));
-		assertEquals("003",DateTimeFormat(date,"SSS"));
-		assertEquals("0003",DateTimeFormat(date,"SSSS"));
-		assertEquals("00003",DateTimeFormat(date,"SSSSS"));
-	}
-	
-	public void function testZ(){
-		// Second in minute
-		assertEquals("CEST",DateTimeFormat(date,"z"));
-		assertEquals("CEST",DateTimeFormat(date,"zz"));
-		assertEquals("CEST",DateTimeFormat(date,"zzz"));
-		assertEquals("Central European Summer Time",DateTimeFormat(date,"zzzz"));
-		assertEquals("Central European Summer Time",DateTimeFormat(date,"zzzzz"));
-		
-		assertEquals("+0200",DateTimeFormat(date,"Z"));
-		assertEquals("+0200",DateTimeFormat(date,"ZZ"));
-		assertEquals("+0200",DateTimeFormat(date,"ZZZ"));
-		assertEquals("+0200",DateTimeFormat(date,"ZZZZ"));
-		assertEquals("+0200",DateTimeFormat(date,"ZZZZZ"));
-	}
-	
-	public void function testN(){
-		// MINUTES IN HOUR
-		assertEquals("30",DateTimeFormat(date,"n"));
-		assertEquals("30",DateTimeFormat(date,"nn"));
-		assertEquals("030",DateTimeFormat(date,"nnn"));
-		assertEquals("0030",DateTimeFormat(date,"nnnn"));
-		assertEquals("00030",DateTimeFormat(date,"nnnnn"));
-		
-		assertEquals("30",DateTimeFormat(date,"N"));
-		assertEquals("30",DateTimeFormat(date,"NN"));
-		assertEquals("030",DateTimeFormat(date,"NNN"));
-		assertEquals("0030",DateTimeFormat(date,"NNNN"));
-		assertEquals("00030",DateTimeFormat(date,"NNNNN"));
-		
-	}
-	
 	public void function testL(){
 		// milli seconds
 		assertEquals("0",DateTimeFormat(date,"l"));
@@ -208,6 +114,51 @@ component extends="org.railo.cfml.test.RailoTestCase"	{
 		
 	}
 	
+	public void function testM(){
+		// month
+		assertEquals("6",DateTimeFormat(date,"M"));
+		assertEquals("06",DateTimeFormat(date,"MM"));
+		assertEquals("Jun",DateTimeFormat(date,"MMM"));
+		assertEquals("June",DateTimeFormat(date,"MMMM"));
+		assertEquals("June",DateTimeFormat(date,"MMMMM"));
+		
+		assertEquals("6",DateTimeFormat(date,"m"));
+		assertEquals("06",DateTimeFormat(date,"mm"));
+		assertEquals("Jun",DateTimeFormat(date,"mmm"));
+		assertEquals("June",DateTimeFormat(date,"mmmm"));
+		assertEquals("June",DateTimeFormat(date,"mmmmm"));
+	}
+	
+	public void function testN(){
+		// MINUTES IN HOUR
+		assertEquals("30",DateTimeFormat(date,"n"));
+		assertEquals("30",DateTimeFormat(date,"nn"));
+		assertEquals("030",DateTimeFormat(date,"nnn"));
+		assertEquals("0030",DateTimeFormat(date,"nnnn"));
+		assertEquals("00030",DateTimeFormat(date,"nnnnn"));
+		
+		assertEquals("30",DateTimeFormat(date,"N"));
+		assertEquals("30",DateTimeFormat(date,"NN"));
+		assertEquals("030",DateTimeFormat(date,"NNN"));
+		assertEquals("0030",DateTimeFormat(date,"NNNN"));
+		assertEquals("00030",DateTimeFormat(date,"NNNNN"));
+	}
+	
+	public void function testS(){
+		// Second in minute
+		assertEquals("3",DateTimeFormat(date,"s"));
+		assertEquals("03",DateTimeFormat(date,"ss"));
+		assertEquals("003",DateTimeFormat(date,"sss"));
+		assertEquals("0003",DateTimeFormat(date,"ssss"));
+		assertEquals("00003",DateTimeFormat(date,"sssss"));
+		
+		assertEquals("3",DateTimeFormat(date,"S"));
+		assertEquals("03",DateTimeFormat(date,"SS"));
+		assertEquals("003",DateTimeFormat(date,"SSS"));
+		assertEquals("0003",DateTimeFormat(date,"SSSS"));
+		assertEquals("00003",DateTimeFormat(date,"SSSSS"));
+	}
+	
 	public void function testT(){
 		// 
 		assertEquals("P",DateTimeFormat(date,"t"));
@@ -222,6 +173,49 @@ component extends="org.railo.cfml.test.RailoTestCase"	{
 		assertEquals("PM",DateTimeFormat(date,"TTTT"));
 		assertEquals("PM",DateTimeFormat(date,"TTTTT"));
 		
+	}
+	
+	public void function testW(){
+		// Week in year
+		assertEquals("24",DateTimeFormat(date,"w"));
+		assertEquals("24",DateTimeFormat(date,"ww"));
+		assertEquals("024",DateTimeFormat(date,"www"));
+		assertEquals("0024",DateTimeFormat(date,"wwww"));
+		assertEquals("00024",DateTimeFormat(date,"wwwww"));
+		
+		// Week in month
+		assertEquals("2",DateTimeFormat(date,"W"));
+		assertEquals("02",DateTimeFormat(date,"WW"));
+		assertEquals("002",DateTimeFormat(date,"WWW"));
+		assertEquals("0002",DateTimeFormat(date,"WWWW"));
+		assertEquals("00002",DateTimeFormat(date,"WWWWW"));
+	}
+	
+	public void function testY(){
+		// year
+		assertEquals("09",DateTimeFormat(date,"y"));
+		assertEquals("09",DateTimeFormat(date,"yy"));
+		assertEquals("09",DateTimeFormat(date,"yyy"));
+		assertEquals("2009",DateTimeFormat(date,"yyyy"));
+		assertEquals("02009",DateTimeFormat(date,"yyyyy"));
+		
+		assertEquals("Y",DateTimeFormat(date,"Y"));
+			
+	}
+	
+	public void function testZ(){
+		// Second in minute
+		assertEquals("CEST",DateTimeFormat(date,"z"));
+		assertEquals("CEST",DateTimeFormat(date,"zz"));
+		assertEquals("CEST",DateTimeFormat(date,"zzz"));
+		assertEquals("Central European Summer Time",DateTimeFormat(date,"zzzz"));
+		assertEquals("Central European Summer Time",DateTimeFormat(date,"zzzzz"));
+		
+		assertEquals("+0200",DateTimeFormat(date,"Z"));
+		assertEquals("+0200",DateTimeFormat(date,"ZZ"));
+		assertEquals("+0200",DateTimeFormat(date,"ZZZ"));
+		assertEquals("+0200",DateTimeFormat(date,"ZZZZ"));
+		assertEquals("+0200",DateTimeFormat(date,"ZZZZZ"));
 	}
 	
 	public void function testPredefined(){
