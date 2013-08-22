@@ -4,7 +4,17 @@
 <cfset currentDirectory= getDirectoryFromPath(getCurrentTemplatePath())>
 <cfsetting requesttimeout="3600"><!-- 1 hour -->
 
+<cfscript>
+string function toPackage(string directory){
+	var currentDirectory= getDirectoryFromPath(getCurrentTemplatePath());
+	return replace(replace(replace(arguments.directory,currentDirectory,''),'\','.','all'),'/','.','all');
+}
+string function toName(string name){
+	return mid(arguments.name,1,len(arguments.name)-4);
+}
 
+
+</cfscript>
 
 <cfdirectory action="list" recurse="true"  sort="dateLastModified desc"  directory="./" name="dir" filter="*.cfc">
 
@@ -16,19 +26,14 @@
 	<ul>
 		
 	<cfloop query="#dir#" endrow="10">
-		<cfset package=replace(replace(replace(dir.directory,currentDirectory,''),'\','.','all'),'/','.','all')>
-		<cfset n=mid(dir.name,1,len(dir.name)-4)>
+		<cfset package=toPackage(dir.directory)>
+		<cfset n=toName(dir.name)>
 		<cfif package == "testcase-templates">
 			<cfcontinue>
 		</cfif>
-		<!--- 
-		TODO get information about the ticket directly from jira
-		<cfset cfcName='tickets.'&n>
-		<cfset cfc=createObject('component',cfcName)>
-		<cfset meta=getMetadata(cfc)>--->
+		
 		<li>
 			<a href="index.cfm?action=single&testcase=#package#.#n#">Run #package#.#n#</a>
-			<!---<cfif !isnull(meta.hint) && len(meta.hint)><br>#meta.hint#</cfif>--->
 		</li>
 	</cfloop>
 	</ul>
@@ -64,10 +69,12 @@ if(url.action != "none") {
 		cfc=createObject('component',cfcName);
 		testSuite.addAll(cfcName,cfc);
 	}
-	else if(url.action == "latest") {
-		loop query="#dir#" endrow="10" {
-			n=mid(dir.name,1,len(dir.name)-4);
-			cfcName='tickets.'&n;
+	else if(url.action == "latest" || url.action == "all") {
+		loop query="#dir#" endrow="#url.action=="latest"?10:1000000#" {
+			package=toPackage(dir.directory);
+			n=toName(dir.name);
+		
+			cfcName=package&'.'&n;
 			cfc=createObject('component',cfcName);
 			testSuite.addAll(cfcName,cfc);
 		}
