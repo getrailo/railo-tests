@@ -1,14 +1,12 @@
 <cfparam name="url.print_js_resources" type="boolean" default="true" />
 <cfparam name="url.toggledebug" type="boolean" default="true" />
 <cfparam name="url.action" type="string" default="none" />
+<cfset currentDirectory= getDirectoryFromPath(getCurrentTemplatePath())>
 <cfsetting requesttimeout="3600"><!-- 1 hour -->
 
 
 
-<cfscript>
-directory sort="dateLastModified desc"  action="list" directory="./tickets" name="dir" filter="*.cfc";
-
-</cfscript>
+<cfdirectory action="list" recurse="true"  sort="dateLastModified desc"  directory="./" name="dir" filter="*.cfc">
 
 <cfoutput>
 <h1>Jira Tickets</h1>
@@ -18,14 +16,18 @@ directory sort="dateLastModified desc"  action="list" directory="./tickets" name
 	<ul>
 		
 	<cfloop query="#dir#" endrow="10">
+		<cfset package=replace(replace(replace(dir.directory,currentDirectory,''),'\','.','all'),'/','.','all')>
 		<cfset n=mid(dir.name,1,len(dir.name)-4)>
+		<cfif package == "testcase-templates">
+			<cfcontinue>
+		</cfif>
 		<!--- 
 		TODO get information about the ticket directly from jira
 		<cfset cfcName='tickets.'&n>
 		<cfset cfc=createObject('component',cfcName)>
 		<cfset meta=getMetadata(cfc)>--->
 		<li>
-			<a href="index.cfm?action=single&ticket=#n#">Run #n#</a>
+			<a href="index.cfm?action=single&testcase=#package#.#n#">Run #package#.#n#</a>
 			<!---<cfif !isnull(meta.hint) && len(meta.hint)><br>#meta.hint#</cfif>--->
 		</li>
 	</cfloop>
@@ -33,7 +35,7 @@ directory sort="dateLastModified desc"  action="list" directory="./tickets" name
 	<li>
 		<form action="index.cfm">Run
 		<input type="hidden" name="action" value="single">
-		<input type="text" name="ticket" value="<cfif isNull(url.ticket)>Jira<cfelse>#url.ticket#</cfif>">
+		<input type="text" name="ticket" value="<cfif isNull(url.ticket)>tickets.Jira<cfelse>#url.ticket#</cfif>">
 		<input type="submit" name="submit" value="Go">
 		</form>
 	</li>
@@ -55,9 +57,10 @@ if(url.action != "none") {
 	if(url.action == "all") {
 		testSuite.addPackage('tickets');
 		testSuite.addPackage('general');
+		testSuite.addPackage('custom');
 	}
 	else if(url.action == "single") {
-		cfcName='tickets.'&url.ticket;
+		cfcName=url.testcase;
 		cfc=createObject('component',cfcName);
 		testSuite.addAll(cfcName,cfc);
 	}
