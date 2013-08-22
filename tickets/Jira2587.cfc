@@ -12,11 +12,9 @@ component extends="org.railo.cfml.test.RailoTestCase"	{
 		assertEquals("AD",DateTimeFormat(date,"GGG"));
 		assertEquals("AD AD",DateTimeFormat(date,"GG GG"));
 		
-		try{
-			assertEquals("AD",DateTimeFormat(date,"g"));
-			fail("must fail with exception:Illegal pattern character 'g'");
-		}
-		catch(local.exp){}
+		
+		assertEquals("g",DateTimeFormat(date,"g"));
+		
 	}
 	
 	public void function testY(){
@@ -231,6 +229,13 @@ component extends="org.railo.cfml.test.RailoTestCase"	{
 		assertEquals("Jun 9, 2009 2:30:03 PM",DateTimeFormat(date,"medium"));
 		assertEquals("June 9, 2009 2:30:03 PM CEST",DateTimeFormat(date,"long"));
 		assertEquals("Tuesday, June 9, 2009 2:30:03 PM CEST",DateTimeFormat(date,"full"));
+		assertEquals("09-Jun-2009 14:30:03",DateTimeFormat(date));
+		
+	}
+	public void function testSpecialCharacter(){
+		assertEquals("'",DateTimeFormat(date,"''"));
+		assertEquals("3 'P' 3",DateTimeFormat(date,"s 't' s"));
+		
 	}
 }
 </cfscript>
