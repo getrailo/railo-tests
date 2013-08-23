@@ -12,7 +12,7 @@ Mapped Folders
 To run the tests from a mapped folder, create the following two mappings in the server or web admin:
 
     virtual:    /railo-tests
-    resource:   {path-of-folder/railo-tests
+    resource:   {path-of-folder}/railo-tests
     primary:    Resource
     inspect:    Always
     
