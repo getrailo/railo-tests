@@ -3,7 +3,7 @@ Railo-Tests
 
 Unit Tests for Railo Server.
 
-This Test Suite need mxunit to be installed (copy of the folder mxunit in webroot) and they need at least Railo 4.1.1.000.
+This Test Suite needs [MXUnit](http://mxunit.org/) to be installed (copy of the folder MXUnit in webroot) and they need at least Railo 4.1.1.000.
 
 
 Mapped Folders
