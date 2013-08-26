@@ -16,7 +16,7 @@ string function toName(string name){
 
 </cfscript>
 
-<cfdirectory action="list" recurse="true"  sort="dateLastModified desc"  directory="./" name="dir" filter="*.cfc">
+<cfdirectory action="list" recurse="true"  sort="dateLastModified desc"  directory="./testcases" name="dir" filter="*.cfc">
 
 <cfoutput>
 <h1>Jira Tickets</h1>
@@ -28,9 +28,9 @@ string function toName(string name){
 	<cfloop query="#dir#" endrow="10">
 		<cfset package=toPackage(dir.directory)>
 		<cfset n=toName(dir.name)>
-		<cfif left(package,len("testcase-templates")) == "testcase-templates">
+		<!---<cfif left(package,len("testcase-templates")) == "testcase-templates">
 			<cfcontinue>
-		</cfif>
+		</cfif>--->
 		
 		<li>
 			<a href="index.cfm?action=single&testcase=#package#.#n#">Run #package#.#n#</a>
