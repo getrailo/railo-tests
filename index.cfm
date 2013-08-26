@@ -28,7 +28,7 @@ string function toName(string name){
 	<cfloop query="#dir#" endrow="10">
 		<cfset package=toPackage(dir.directory)>
 		<cfset n=toName(dir.name)>
-		<cfif package == "testcase-templates">
+		<cfif left(package,len("testcase-templates")) == "testcase-templates">
 			<cfcontinue>
 		</cfif>
 		
@@ -59,12 +59,7 @@ if(url.action != "none") {
 	testSuite = new org.railo.cfml.test.RailoTestSuite();
 	//testSuite.maxTheads(20);
 	
-	if(url.action == "all") {
-		testSuite.addPackage('tickets');
-		testSuite.addPackage('general');
-		testSuite.addPackage('custom');
-	}
-	else if(url.action == "single") {
+	if(url.action == "single") {
 		cfcName=url.testcase;
 		cfc=createObject('component',cfcName);
 		testSuite.addAll(cfcName,cfc);
