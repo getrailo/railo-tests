@@ -67,8 +67,9 @@ if(url.action != "none") {
 	else if(url.action == "latest" || url.action == "all") {
 		loop query="#dir#" endrow="#url.action=="latest"?10:1000000#" {
 			package=toPackage(dir.directory);
+			if(listLen(package,'.')>2) continue;
 			n=toName(dir.name);
-		
+			
 			cfcName=package&'.'&n;
 			cfc=createObject('component',cfcName);
 			testSuite.addAll(cfcName,cfc);
