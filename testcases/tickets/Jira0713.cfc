@@ -2,7 +2,7 @@
 component extends="org.railo.cfml.test.RailoTestCase"	{
 
 	public function setUp(){
-		cfc=createObject( "component", "Jira0733.Test").init();
+		cfc=createObject( "component", "Jira0713.Test").init();
 	}
 
 	public void function test(){
