@@ -5,24 +5,31 @@ component extends="org.railo.cfml.test.RailoTestCase"	{
 	}
 
 	public void function testLocal(){
-		local.x = "bob";
+		setting showdebugoutput="false";
+		local.local1 = "test";
 		local.fn = function() {
-			local.test=x;
+			assertEquals("test",local1);
 		};
         local.fn();
 	}
 
 	public void function testArguments(){
-		local.fn = function(arg1) {
-			local.test=arg1;
+		_testArguments("test");
+	}
+	
+	private void function _testArguments(arg1){
+		local.fn = function() {
+			assertEquals("test",arg1);
 		};
         local.fn();
 	}
+	
+	
 
 	public void function testVariables(){
 		variables._test2607="test";
 		local.fn = function() {
-			local.test=_test2607;
+			assertEquals("test",_test2607);
 		};
         local.fn();
 	}
