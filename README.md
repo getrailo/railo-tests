@@ -4,6 +4,7 @@ Railo-Tests
 Unit Tests for Railo Server.
 
 This Test Suite needs [MXUnit](http://mxunit.org/) to be installed (copy of the folder MXUnit in webroot) and they need at least Railo 4.1.1.000.
+To write your own testcases, check out the folder "/testcase-templates", there you can find various testcase templates with readme to all of them.
 
 
 Mapped Folders
@@ -16,8 +17,8 @@ To run the tests from a mapped folder, create the following two mappings in the 
     primary:    Resource
     inspect:    Always
     
-    virtual:    /tickets
-    resource:   {path-of-folder}/railo-tests/tickets
+    virtual:    /testcases
+    resource:   {path-of-folder}/railo-tests/testcases
     primary:    Resource
     inspect:    Always
     
